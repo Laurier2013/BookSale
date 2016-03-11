@@ -11,6 +11,20 @@ VALUES ('C004', 'Edward', 'Ford', '6045562173', '935 Marine Dr', 'Vancouver', 'B
 INSERT INTO Customer_T  (CustomerID, Cust_Fname, Cust_Lname, Cust_Phone, Cust_Address, Cust_City, Cust_Prov, Cust_PostCode, Cust_Membership)
 VALUES ('C005', 'Kate', 'White', '6045231892', ' 3292 E 29th Ave', 'Vancouver', 'BC', 'V5R1W4',1);
 
+
+-- Populate Book_T
+#TRUNCATE TABLE Book_T;
+INSERT INTO Book_T(BookID, AuthorID, Title, ISBN, Category, Price, ReleaseYear, Publisher)
+VALUES('B001', 'A001',"Percy Jackson's Greek Heroes" , '1423183657', 'Children','19.66', '2015', 'Disney Hyperion');
+INSERT INTO Book_T(BookID, AuthorID, Title, ISBN, Category, Price, ReleaseYear, Publisher)
+VALUES('B002', 'A002', 'Harry Porter','1408856778', 'Children','78.09', '2015', 'Bloomsbury Press');
+INSERT INTO Book_T(BookID, AuthorID, Title, ISBN, Category, Price, ReleaseYear, Publisher)
+VALUES('B003', 'A003', 'Secret Garden', '1780671067', 'Children','12.99', '2013', 'Laurence King Publishing');
+INSERT INTO Book_T(BookID, AuthorID, Title, ISBN, Category,Price, ReleaseYear, Publisher)
+VALUES('B004', 'A004', 'House of Cards', '1492606618' , 'Literature','24.42', '2013', 'Simon & Schuster UK');
+INSERT INTO Book_T(BookID, AuthorID, Title, ISBN, Category, Price, ReleaseYear, Publisher)
+VALUES('B005', 'A005','Margaret the First: A Novel','1936787350','Literature','13.50', '2015', 'Catapult');
+
 -- Populate Author_T
 #TRUNCATE TABLE Author_T;
 INSERT INTO Author_T (AuthorID, Author_Name, BookID)
@@ -23,19 +37,6 @@ INSERT INTO Author_T (AuthorID, Author_Name, BookID)
 VALUES('A004', 'Michael Dobbs', 'B004');
 INSERT INTO Author_T (AuthorID, Author_Name, BookID)
 VALUES('A005', 'Danielle Dutton', 'B005');
-
--- Populate Book_T
-#TRUNCATE TABLE Book_T;
-INSERT INTO Book_T(BookID, AuthorID, Title, ISBN, Category, ReleaseYear, Publisher)
-VALUES('B001', 'A001',"Percy Jackson's Greek Heroes" , '1423183657', 'Children', '2015', 'Disney Hyperion');
-INSERT INTO Book_T(BookID, AuthorID, Title, ISBN, Category, ReleaseYear, Publisher)
-VALUES('B002', 'A002', 'Harry Porter','1408856778', 'Children', '2015', 'Bloomsbury Press');
-INSERT INTO Book_T(BookID, AuthorID, Title, ISBN, Category, ReleaseYear, Publisher)
-VALUES('B003', 'A003', 'Secret Garden', '1780671067', 'Children', '2013', 'Laurence King Publishing');
-INSERT INTO Book_T(BookID, AuthorID, Title, ISBN, Category,ReleaseYear, Publisher)
-VALUES('B004', 'A004', 'House of Cards', '1492606618' , 'Literature', '2013', 'Simon & Schuster UK');
-INSERT INTO Book_T(BookID, AuthorID, Title, ISBN, Category, ReleaseYear, Publisher)
-VALUES('B005', 'A005','Margaret the First: A Novel','1936787350','Literature', '2015', 'Catapult');
 
 -- Populate Inventory_T
 #TRUNCATE TABLE Inventory_T;
@@ -63,44 +64,6 @@ VALUES(1004, 'C004', 'B001', 1, 19.66, '2016/1/5');
 INSERT INTO Order_T(OrderID, CustomerID, BookID, Quantity, TotalAmount, OrderDate) 
 VALUES(1005, 'C005', 'B005', 2, 27, '2016/1/3');
 
--- Populate BookPrice_T
-#TRUNCATE TABLE BookPrice_T;
-INSERT INTO BookPrice_T(BookID, SalePrice, MemberPrice, SecondHandPrice)
-VALUES('B001','23.66','19.66',NULL);
-INSERT INTO BookPrice_T(BookID, SalePrice, MemberPrice, SecondHandPrice)
-VALUES('B002','87.66','78.09', NULL);
-INSERT INTO BookPrice_T(BookID, SalePrice, MemberPrice, SecondHandPrice)
-VALUES('B003','15.50','12.99', '8.09');
-INSERT INTO BookPrice_T(BookID, SalePrice, MemberPrice, SecondHandPrice)
-VALUES('B004','25.05','24.42', '12.00');
-INSERT INTO BookPrice_T(BookID, SalePrice, MemberPrice, SecondHandPrice)
-VALUES('B005','15.98','13.50',NULL);
-
-use booksale;
-select * from author_t;
-select * from customer_t;
-select * from book_t;
-select * from order_t;
-select * from inventory_t;
-select * from bookprice_t;
-
-#Create View
-CREATE VIEW BookTitleAuthor_VW as select b.BookID, b.Title, b.Publisher, a.Author_Name
-from Book_T b inner join Author_T a
-on b.BookID = a.BookID;
-select * from BookTitleAuthor_VW;
-CREATE VIEW CustomerBook_VW as select c.CustomerID, o.BookID, o.Quantity, a.Author_Name
-from Customer_T c inner join Order_T o on c.CustomerID = o.CustomerID
-inner join Author_t a on o.BookID = a.BookID;
-select * from CustomerBook_VW;
-
-#Union Querry
-
-#Left Outer Join Querry
-
-#Right Outer Join Querry
-
-#Create Index
 
 
 
